@@ -9,7 +9,7 @@ Explain the difference between a raw TCP socket server and an HTTP server. Your 
 - what HTTP adds on top,
 - why most web APIs do not directly expose raw socket protocols
 
-**answer**
+**A socket is an endpoint for network communication, it essentially sends and recieves bytes. What HTTP adds on top is more defined structure to network request and response messages. Most APIs utilize this because it makes it much easier for the user to understand what is going on.**
 
 
 ### 2. Request/Response
@@ -19,13 +19,13 @@ Describe a request/response pattern. Then explain how it appears in:
 - an HTTP API,
 - an Express route handler
 
-**answer**
+**In a request/response pattern, the client always initiates communication by sending a request to the server. The server listens until it recieves a communication from the client. The server then applies logic, accesses resources, and then sends the response back to the client. The client will then display or consume those results. This describes a TCP command server, in which a server is listening for a request from a client. An HTTP API uses this same structure, and simply structures it a bit more. An Express route handler expands this even more, in dictating how a server will respond to an HTTP request from a client.**
 
 
 ### 3. Statelessness
-Expplain what it means for an API to be stateless. Give one advantage and one disadvantage of a stateless design.
+Explain what it means for an API to be stateless. Give one advantage and one disadvantage of a stateless design.
 
-**answer**
+**A stateless system is one in which each request contains everything needed. A big advantage of these systems is that they are easy to scale horizontally and to recover after failure. One key disadvantage however is that the server does not remember prior requests, which leads to a lot more overhead.**
 
 
 ### 4. HTTP Status Codes
@@ -33,11 +33,11 @@ For each situation, choose an appropriate HTTP status code and briefly justify i
 
 | Situation    | Status Code |
 | -------- | ------- |
-| A new resource was successfully created  | answer    |
-| The client requested an item that does not exist | answer     |
-| The client sent JSON missing a required field    | answer    |
-| The server had an unexpected error | answer|
-| A successful request returns JSON data| answer |
+| A new resource was successfully created  | 201 - used when something is created successfully    |
+| The client requested an item that does not exist | 404 - valid request, but not found     |
+| The client sent JSON missing a required field    | 400 - bad request    |
+| The server had an unexpected error | 500 - internal service error|
+| A successful request returns JSON data| 200 - OK/successful |
 
 
 <br>
@@ -53,7 +53,14 @@ List URIs for
 - partially updating a task
 - deleting a task
 
-**answer**
+<br>
+
+- **GET /tasks**
+- **GET /tasks/task1**
+- **POST /tasks/task1**
+- **PUT /tasks/task1**
+- **PATCH /tasks/task1**
+- **DELETE tasks/task1**
 
 ### 2. Method Semantics
 For each route, identify the HTTP method and explain whether it is
@@ -61,12 +68,24 @@ For each route, identify the HTTP method and explain whether it is
 - idempotent
 - neither
 
-**answer**
+<br>
+
+- **Safe, Idempotent**
+- **Safe, Idempotent**
+- **Neither**
+- **Idempotent**
+- **Neither**
+- **Idempotent** 
 
 ### 3. JSON Representation
 Provide one valid JSON example for creating a new task
 
-**answer**
+<code>{
+  "name": "midterm-example-task",
+  "version": "1.0.0",
+  "description": "Example code for Midterm",
+  "type": "task"
+  }</code>
 
 <br>
 
@@ -75,16 +94,16 @@ Provide one valid JSON example for creating a new task
 ## 1. Code vs. Contract
 Explain the difference between an Express route implementation and an Open API specification
 
-**answer**
+**The OpenAPI specification describes what should be done and how it should be done, and the Express route implementation is the actual executable code that does what the OpenAPI says to do.**
 
 
 ### 2. Drift
 Give two examples of how code and OpenAPI documentation can drift apart
 
-**answer**
+**One obvious way this can happen is when there is no OpenAPI. This can cause developers to have to guess a lot of things, such as the URLs, JSON shape, and status codes. Issues can also arise when developers fail to update the OpenAPI as they update the code, so they are no longer up to date with one another.**
 
 ### 3. Client Impact
 Explain why inaccurate API documentation can cause problems for client developers
 
-**answer**
+**When an OpenAPI is inaccurate, that can lead to far more work for the developer. If there just simply isn't an OpenAPI, that causes developers to have to do a lot of guessing. But when an OpenAPI is present, but incorrect, now you have developers potentially using incorrect URLs, using services that are not allowed, etc. This can cause the developer to have to go back and redo things when that information is finally updated and made correct. It also inconveniences the client because now they might not get the product on time because it is taking the developers longer to fix these errors. Overall, it is way more work and heartache for everyone involved.**
 
