@@ -130,6 +130,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
 
+# update components !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 components:
   schemas:
     Item:
@@ -138,24 +139,27 @@ components:
         id:
           type: integer
           example: 1
-        name:
+        title:
           type: string
-          example: keyboard
-        quantity:
-          type: integer
-          example: 10
+          example: watch lecture
+        course:
+          type: string
+          example: CS100
+        completed:
+          type: boolean
+          example: true
     ItemInput:
       type: object
       required:
-        - name
-        - quantity
+        - title
+        - course
       properties:
-        name:
+        title:
           type: string
-          example: monitor
-        quantity:
-          type: integer
-          example: 4
+          example: do assignment
+        course:
+          type: string
+          example: CS250
     ErrorResponse:
       type: object
       properties:
