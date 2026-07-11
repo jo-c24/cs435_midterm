@@ -55,12 +55,12 @@ List URIs for
 
 <br>
 
-- **GET /tasks**
-- **GET /tasks/task1**
-- **POST /tasks/task1**
-- **PUT /tasks/task1**
-- **PATCH /tasks/task1**
-- **DELETE tasks/task1**
+- **GET /api/tasks** (get all tasks)
+- **GET /api/tasks/1** (get one task by id)
+- **POST /api/tasks** (create a task)
+- **PUT /api/tasks/1** (replace a task)
+- **PATCH /api/tasks/1** (partially update a task)
+- **DELETE /api/tasks/1** (delete a task)
 
 ### 2. Method Semantics
 For each route, identify the HTTP method and explain whether it is
@@ -81,11 +81,19 @@ For each route, identify the HTTP method and explain whether it is
 Provide one valid JSON example for creating a new task
 
 <code>{
-  "name": "midterm-example-task",
-  "version": "1.0.0",
-  "description": "Example code for Midterm",
-  "type": "task"
+  "title": "Watch Week 3 lecture",
+  "course": "CS453",
+  "completed": false
   }</code>
+
+<br>
+
+## Part 4 - Middleware
+
+Briefly explain why these are middleware concerns instead of being repeated manually inside every route.
+
+**These jobs are middleware because every route needs them, so it doesn't make sense to copy the same code into each handler. The logger has to run on every single request no matter what route it is, so putting it in one middleware means it just happens automatically instead of me writing the same logging lines over and over. The validation is the same idea, POST, PUT, and PATCH all need to check that the task body is valid, so I write that check once as middleware and attach it to those routes instead of repeating the exact same if-statements inside all three handlers. Doing it this way keeps the route handlers short and focused on their actual job, and if I ever need to change how logging or validation works I only have to fix it in one place instead of hunting through every route.**
+
 
 <br>
 
